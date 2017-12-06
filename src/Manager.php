@@ -34,7 +34,8 @@ class Manager{
             Translation::firstOrCreate(array(
                 'locale' => $this->app['config']['app.locale'],
                 'group' => $group,
-                'key' => $key,
+                'key' => mb_substr($key, 0, 190),
+                'value' => $key,
             ));
         }
     }
@@ -131,7 +132,7 @@ class Manager{
             "[\),]";                            // Close parentheses or new parameter
 
         $stringPattern =
-            "[^\w|>]".                                     // Must not have an alphanum or _ or > before real method
+            // "[^\w|>]".                                     // Must not have an alphanum or _ or > before real method
             "(".implode('|', $functions) .")".             // Must start with one of the functions
             "\(".                                          // Match opening parenthesis
             "(?P<quote>['\"])".                            // Match " or ' and store in {quote}
